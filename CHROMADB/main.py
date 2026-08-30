@@ -1,31 +1,29 @@
+import os
 import chromadb
-import uuid
+from dotenv import load_dotenv
 
-client = chromadb.PersistentClient(path='./chroma_db')
-collection  = client.create_collection('backend_rules')
+load_dotenv(override=True)
 
-with open('backend.txt', 'r', encoding ='utf-8') as f:
-    backend_rules: list[str] = f.read().splitlines()
-    
-    
-collection.add(
-    ids = [str(uuid.uuid4()) for _ in backend_rules],
-    documents = backend_rules,
-    metadatas =[{"line": line} for line in range(len(backend_rules))]
-    
+chroma_key = os.getenv("CHROMA_API_KEY")
+os.environ["CHROMA_API_KEY"] = chroma_key
+
+client = chromadb.CloudClient(
+    api_key=chroma_key,
+    tenant='c083b317-a6b8-4ff7-9e45-97d73c87dbb1',
+    database='helloworld'
 )
 
-print(collection.peek(5))    
-    
+collection = client.get_collection('cruciator18_rag_agentic_main')
 
-results= collection.query(
-    query_texts = ["How to to efficiently manage and reuse connections to the database server?",
-                   "How to prevent denial-of-service via resource exhaustion?",
-                   "How to optimize database queries for better performance?",
-    ],
-    n_results = 4
+print("Connection successful! Peeking at 1 document...")
+print(collection.peek(1))    
+
+results = collection.query(
+    query_texts=["what is the basic structure of the retriever?"],
+    n_results=1
 )
 
-for i,query_results in enumerate(results["documents"]):
-    print(f"\nQuery{i}")
-    print('\n'.join(query_results))
+print("\nResults of query:")
+for i, query_results in enumerate(results["documents"][0]):
+    print(f"\nResult {i}:")
+    print(query_results)
