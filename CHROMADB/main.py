@@ -1,17 +1,17 @@
 import chromadb
 import uuid
 
-client = chromadb.Client()
-collection  = client.create_collection('backend')
+client = chromadb.PersistentClient(path='./chroma_db')
+collection  = client.create_collection('backend_rules')
 
 with open('backend.txt', 'r', encoding ='utf-8') as f:
-    rules: list[str] = f.read().splitlines()
+    backend_rules: list[str] = f.read().splitlines()
     
     
 collection.add(
-    ids = [str(uuid.uuid4()) for _ in rules],
-    documents = rules,
-    metadatas =[{"line": line} for line in range(len(rules))]
+    ids = [str(uuid.uuid4()) for _ in backend_rules],
+    documents = backend_rules,
+    metadatas =[{"line": line} for line in range(len(backend_rules))]
     
 )
 
