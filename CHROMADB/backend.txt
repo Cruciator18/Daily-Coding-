@@ -1,0 +1,191 @@
+Always version your REST APIs via URL path or headers to ensure backward compatibility for existing clients.
+Use appropriate HTTP methods (GET, POST, PUT, PATCH, DELETE) that align with standard RESTful semantics.
+Return standard and predictable HTTP status codes for success, client errors, and server errors.
+Implement cursor-based or offset-based pagination for endpoints that return large collections of data.
+Never store plaintext passwords; always use strong, salted hashing algorithms like Argon2 or bcrypt.
+Validate and sanitize all incoming data at the API boundary before processing it in the business logic layer.
+Use parameterized queries or prepared statements exclusively to prevent SQL injection attacks.
+Enforce the Principle of Least Privilege for all database users, service accounts, and IAM roles.
+Implement rate limiting and throttling on all public-facing endpoints to mitigate DDoS and brute-force attacks.
+Require strong authentication (e.g., JWT, OAuth2) and validate token signatures and expiration dates on every secured request.
+Implement Role-Based Access Control (RBAC) or Attribute-Based Access Control (ABAC) for fine-grained authorization.
+Never log sensitive Personally Identifiable Information (PII), passwords, API keys, or financial data.
+Use structured logging in JSON format to make logs easily searchable and parsable by log aggregation tools.
+Include unique correlation IDs in request headers and logs to trace execution paths across distributed microservices.
+Separate business logic from routing and controller layers to maintain clean architecture and testability.
+Design PUT and DELETE endpoints to be idempotent, ensuring that duplicate requests do not cause unintended side effects.
+Use dependency injection to decouple components and make unit testing easier with mock objects.
+Rely on environment variables for all configuration settings and secrets, never hardcoding them in the source code.
+Implement database connection pooling to efficiently manage and reuse connections to the database server.
+Add appropriate indexes to database columns that are frequently used in WHERE clauses, JOINs, or ORDER BY statements.
+Avoid the N+1 query problem by eager loading or batching database queries when using Object-Relational Mappers.
+Use database migrations to track and apply schema changes systematically across all environments.
+Cache frequently accessed, read-heavy data using in-memory stores like Redis or Memcached to reduce database load.
+Set appropriate Time-To-Live (TTL) values on all cached data to prevent serving stale information to clients.
+Use asynchronous background tasks or message queues for long-running operations like sending emails or processing images.
+Design systems to fail gracefully, returning fallback data or user-friendly error messages when a downstream service is unavailable.
+Implement circuit breakers when communicating with external APIs to prevent cascading failures in your system.
+Write unit tests for all core business logic, aiming for high code coverage on critical paths.
+Create integration tests to verify that the database, cache, and external services interact correctly with your application.
+Automate the execution of all test suites within a Continuous Integration (CI) pipeline before merging any code.
+Containerize backend applications using Docker to ensure consistent execution environments from local development to production.
+Implement automated health check endpoints for load balancers and container orchestrators to monitor system readiness and liveness.
+Gracefully handle termination signals (SIGTERM) by finishing in-flight requests and closing database connections before shutting down.
+Enforce a strict Content Security Policy (CSP) and configure Cross-Origin Resource Sharing (CORS) carefully.
+Validate file uploads strictly by checking file extensions, MIME types, and scanning for malware before storing them.
+Store uploaded user files in scalable object storage rather than on the local application server filesystem.
+Use Distributed Tracing (e.g., OpenTelemetry) to identify performance bottlenecks and latency issues in complex microservice architectures.
+Regularly update dependencies and libraries to patch known security vulnerabilities and bugs.
+Use semantic versioning (SemVer) for internal libraries and packages to communicate the impact of changes safely.
+Design database schemas in the Third Normal Form (3NF) to reduce data duplication, unless denormalization is required for read performance.
+Use soft deletes via a timestamp or boolean flag instead of hard deletes for critical business data.
+Ensure all API requests and responses are compressed using gzip or Brotli to reduce network bandwidth usage.
+Enforce strict timeouts on all external network requests to prevent the application from hanging indefinitely.
+Document all APIs using OpenAPI specifications and keep the documentation synchronized with the actual codebase.
+Use consistent naming conventions for JSON payloads and database columns across the entire project.
+Implement optimistic or pessimistic concurrency control when multiple users might update the same database record simultaneously.
+Regularly backup production databases and test the restoration process to ensure data recovery.
+Monitor server metrics including CPU usage, memory consumption, disk I/O, and network traffic to proactively scale infrastructure.
+Use WebSockets or Server-Sent Events (SSE) only when real-time, bi-directional communication is strictly necessary.
+Treat all servers as ephemeral and stateless; user sessions should be stored in a centralized cache or database.
+Utilize a reverse proxy or API Gateway to handle TLS termination, load balancing, and request routing.
+Store all application secrets in a dedicated secrets management system like HashiCorp Vault or AWS Secrets Manager.
+Implement multi-factor authentication (MFA) for all administrative and highly privileged accounts.
+Sanitize all user-generated content before rendering or storing to prevent Cross-Site Scripting (XSS) attacks.
+Protect stateful web applications against Cross-Site Request Forgery (CSRF) using anti-CSRF tokens.
+Ensure all data transmitted over the network is encrypted using TLS 1.2 or higher.
+Encrypt sensitive data at rest in the database, including personally identifiable information and tokens.
+Rotate API keys and database credentials automatically on a regular schedule.
+Limit the payload size of incoming requests to prevent denial-of-service via resource exhaustion.
+Use explicit database transactions when performing multiple related write operations to maintain ACID properties.
+Define standard error response formats so API consumers can programmatically parse and handle failures.
+Leverage JSON Schema or similar validation libraries to enforce strict payload structures on POST and PUT requests.
+Strip server identity headers (e.g., X-Powered-By) to prevent leaking technology stack information to attackers.
+Apply appropriate cache-control headers (e.g., ETag, Last-Modified) to optimize client-side caching.
+Design GraphQL endpoints with query depth and complexity limits to prevent resource-heavy recursive queries.
+Prefer token-based authentication for stateless microservices over stateful session cookies.
+Validate that API tokens have not been revoked by checking against a high-speed denylist in Redis.
+Avoid using UUIDv4 as a primary key in highly clustered relational databases; prefer sequential UUIDs or ULIDs.
+Run regular static application security testing (SAST) and dynamic analysis (DAST) in the CI/CD pipeline.
+Design microservices around business domains (Domain-Driven Design) rather than technical layers.
+Use an anti-corruption layer when integrating a modern microservice with a legacy monolithic system.
+Implement bulkheads in microservice architectures to isolate thread pools and prevent total system collapse.
+Log a warning and alert developers when an API endpoint response time exceeds the 95th percentile threshold.
+Keep transaction scopes as short as possible in the database to prevent row locks and deadlocks.
+Avoid utilizing the database as a message queue; use dedicated message brokers like RabbitMQ or Kafka.
+Configure Dead Letter Queues (DLQ) for asynchronous workers to capture and inspect failed message processing.
+Apply exponential backoff and jitter algorithms when retrying failed network requests to external services.
+Do not trust the client; always re-verify business rules, constraints, and permissions on the server side.
+Require explicit sorting criteria in API requests to guarantee consistent order of returned collections.
+Mask or redact sensitive fields in API responses based on the requesting user's authorization level.
+Use immutable infrastructure principles; replace servers or containers instead of patching them in place.
+Implement canary releases or blue-green deployments to minimize downtime and risk during production rollouts.
+Maintain separate environments (development, staging, production) with identical configurations but separate data.
+Perform load testing and stress testing regularly to identify the system's breaking point and bottleneck.
+Use connection timeouts and read timeouts on all database queries to prevent slow queries from monopolizing resources.
+Implement read replicas to offload read-heavy reporting and analytics queries from the primary database instance.
+Partition or shard massive database tables based on a logical tenant ID or timestamp to maintain query performance.
+Use standard timezone (UTC) for storing all dates and times in the database and API payloads.
+Avoid exposing internal database autoincrement IDs in public APIs; map them to public UUIDs.
+Write small, focused, and single-purpose functions to adhere to the Single Responsibility Principle.
+Leverage feature flags to decouple code deployment from feature release and enable safe testing in production.
+Configure alerts for abnormal system behaviors, such as a sudden spike in 5xx HTTP status codes.
+Conduct regular post-mortem reviews for production incidents and document them in a blameless culture.
+Use strict linting and code formatting tools (e.g., Prettier, Black, ESLint) to maintain a unified codebase style.
+Implement contract testing (e.g., Pact) between microservices to ensure API changes do not break consumers.
+Protect against Insecure Direct Object Reference (IDOR) by validating ownership before fetching or mutating resources.
+Define clear Service Level Objectives (SLOs) and Service Level Indicators (SLIs) for critical backend services.
+Implement a global exception handler to catch unhandled errors and prevent them from crashing the application process.
+Use early returns in functions to reduce nested conditionals and improve code readability.
+Ensure background jobs are idempotent so they can safely be retried if a worker crashes mid-execution.
+Utilize a Content Delivery Network (CDN) to serve static assets and cache public API responses globally.
+Scan third-party container images for vulnerabilities before pulling them into the organizational registry.
+Avoid global state and mutable singletons in server-side code to prevent race conditions during concurrent requests.
+Log business context alongside technical errors (e.g., user ID, order ID) to expedite debugging.
+Implement automated database seeders for local development to ensure all developers work with consistent mock data.
+Configure appropriate memory limits and CPU requests for containers to ensure fair resource scheduling.
+Use gRPC or Protocol Buffers for high-throughput, low-latency internal communication between microservices.
+Validate XML inputs against a strict schema and disable External Entity (XXE) processing.
+Set up synthetic monitoring to ping critical API endpoints externally and verify they return correct business data.
+Prefer Composition over Inheritance when sharing behavior between backend classes or modules.
+Maintain an architectural decision record (ADR) repository to document why major technical choices were made.
+Use a distributed lock (e.g., via Redis or Zookeeper) when a cron job must be executed by exactly one worker instance.
+Implement Server-Side Request Forgery (SSRF) protections when your backend fetches data from user-provided URLs.
+Apply the Strangler Fig pattern to incrementally migrate functionality away from legacy monoliths.
+Use edge computing or edge functions for lightweight authentication checks and routing to reduce origin server load.
+Ensure logs do not contain API tokens or session IDs in the URL query parameters during request logging.
+Require explicit HTTP cache headers (Cache-Control: no-store) on endpoints returning personalized or sensitive data.
+Implement a centralized schema registry when using event-driven architectures with Kafka or similar brokers.
+Isolate tenant data in multi-tenant SaaS applications using row-level security or separate schemas.
+Use webhooks with HMAC signature validation to securely push real-time events to external consumer systems.
+Configure a memory eviction policy in Redis (e.g., allkeys-lru) to prevent Out of Memory errors during cache spikes.
+Prevent cache stampedes by using probabilistic early expiration or request coalescing techniques.
+Define maximum lengths for all string inputs in the API schema and enforce them at the database level.
+Store boolean values consistently; avoid mixing null, false, and zero interpretations across the stack.
+Design for graceful degradation; if a recommendation engine fails, serve default popular items instead of throwing an error.
+Enforce commit message standards (e.g., Conventional Commits) to automate changelog generation.
+Disable verbose stack traces in production API error responses to prevent information leakage.
+Use mutual TLS (mTLS) to cryptographically verify the identity of microservices communicating with each other.
+Ensure database migrations are backward compatible to allow zero-downtime rolling deployments.
+Implement token revocation lists (TRL) or short-lived access tokens to mitigate the impact of compromised credentials.
+Optimize Docker images by using multi-stage builds and minimal base images like Alpine or Distroless.
+Configure auto-scaling groups based on predictive metrics or custom queue depths, not just raw CPU utilization.
+Audit and log all administrative actions, such as changing permissions, deleting users, or modifying configurations.
+Use strict type-checking in dynamically typed languages (e.g., TypeScript, Python Type Hints) to catch errors early.
+Apply the Outbox Pattern to guarantee message delivery to a message broker during distributed database transactions.
+Implement a standard health check format (e.g., RFC 6838) indicating the status of specific backend dependencies.
+Isolate external third-party API logic into dedicated adapter classes to limit the blast radius of API changes.
+Avoid blocking the event loop in asynchronous runtimes (Node.js, asyncio) by offloading CPU-heavy tasks to worker threads.
+Regularly run query execution plan analysis (EXPLAIN) on the database to identify missing indexes.
+Apply a Web Application Firewall (WAF) to intercept malicious payloads and known attack vectors before they hit the API.
+Use write-through or write-behind caching strategies depending on the application's data consistency requirements.
+Protect against enumeration attacks by returning identical generic error messages for failed logins or account recoveries.
+Implement robust path traversal protections when reading or writing files to the local file system.
+Require code reviews from at least one senior engineer for changes involving authentication, authorization, or payments.
+Define and enforce resource quotas per user or tenant to prevent a single actor from exhausting system resources.
+Avoid deploying database schema changes and code changes that rely on them in the exact same deployment step.
+Use background sweeping processes to clean up orphaned records, expired tokens, and temporary files.
+Implement request coalescing in your data access layer to bundle identical simultaneous queries into a single database hit.
+Utilize memory profiling tools periodically to detect and patch memory leaks in long-running processes.
+Set explicit connection timeouts for message broker publishers to avoid thread starvation during broker outages.
+Use a robust permission evaluation engine (like Open Policy Agent) for centralized, policy-as-code authorization.
+Track API usage metrics per client application to identify heavy users and potential integration bugs.
+Limit the number of nested includes or joins allowed in API requests to prevent complex, database-locking queries.
+Store time-series data (like metrics and events) in purpose-built time-series databases rather than relational tables.
+Implement automatic retry with idempotency keys for distributed financial transactions to guarantee exactly-once processing.
+Verify the signature of incoming webhooks from external providers (Stripe, Twilio) to ensure payload authenticity.
+Define explicit boundaries between bounded contexts to prevent domain logic from bleeding across microservices.
+Avoid sharing database instances between microservices; each service should own its schema and data exclusively.
+Use shadow deployments to mirror live traffic to a new service version for testing without impacting actual users.
+Configure appropriate log rotation and archival policies on virtual machines to prevent disk space exhaustion.
+Mask sensitive environment variables in CI/CD pipeline output logs.
+Rely on established cryptography libraries rather than rolling custom encryption or hashing algorithms.
+Use short-lived, dynamically generated database credentials for backend services instead of static, long-lived passwords.
+Implement query complexity analysis in GraphQL to reject requests that would consume excessive backend compute.
+Return a 429 Too Many Requests status code with a Retry-After header when rate limits are exceeded.
+Always set the Secure, HttpOnly, and SameSite attributes on session cookies to mitigate XSS and CSRF risks.
+Leverage thread-local variables or asynchronous context variables strictly for request-scoped correlation IDs.
+Monitor and alert on queue depths in message brokers to proactively identify stalling consumer workers.
+Isolate computationally intensive tasks (like PDF generation or video encoding) into dedicated, scalable worker pools.
+Ensure API responses use pagination links (HATEOAS) to guide clients through large datasets programmatically.
+Validate state transitions in your domain entities to ensure business processes follow the correct lifecycle.
+Use a dedicated staging environment that perfectly mirrors production infrastructure for final user acceptance testing.
+Design systems to automatically recover from network partitions and temporary database disconnections.
+Enforce code coverage thresholds in CI to prevent merging pull requests that drop overall test coverage.
+Use deterministic sorting (e.g., appending the primary key) when paginating results to prevent duplicate or skipped records.
+Store massive analytical logs in columnar databases or data lakes optimized for high-volume aggregation queries.
+Implement GraphQL dataloaders to solve the N+1 query problem inherent in graph resolvers.
+Use standardized date formats (ISO 8601) for all JSON date-time fields to avoid client-side parsing ambiguities.
+Avoid utilizing auto-increment IDs for publicly shareable links to prevent business intelligence leakage.
+Deploy configuration changes using the same automated, version-controlled pipelines used for code deployments.
+Perform regular disaster recovery drills to validate database restoration and infrastructure recreation times.
+Sanitize all inputs applied to shell commands to prevent OS command injection vulnerabilities.
+Use consistent error codes (e.g., "ERR_INVALID_EMAIL") alongside human-readable messages in API error responses.
+Implement aggressive caching for static configuration data that rarely changes but is heavily read.
+Avoid long-running transactions by breaking up massive bulk updates into smaller, chunked operations.
+Protect against ReDoS (Regular Expression Denial of Service) by profiling complex regex patterns against large inputs.
+Verify that all background workers have dedicated dead-letter queues and alerting for unprocessable messages.
+Restrict SSH access to production servers, preferring centralized session management and audit logging systems.
+Use standard OpenID Connect (OIDC) protocols instead of building custom Single Sign-On (SSO) solutions.
+Implement API gateway usage plans to offer tiered access limits based on customer subscription levels.
+Ensure your backend architecture accounts for eventual consistency when relying on asynchronous message passing.
