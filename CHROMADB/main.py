@@ -2,7 +2,7 @@ import chromadb
 import uuid
 
 client = chromadb.Client()
-collection  = client.create_collection('harry_potter')
+collection  = client.create_collection('backend')
 
 with open('backend.txt', 'r', encoding ='utf-8') as f:
     rules: list[str] = f.read().splitlines()
