@@ -1,0 +1,30 @@
+--extra-index-url https://download.pytorch.org/whl/cu121
+
+# PyTorch (CUDA 12.1 build)
+torch
+torchvision
+torchaudio
+
+# BERT2BERT / training
+transformers
+datasets
+sentencepiece
+accelerate
+pandas
+numpy
+scikit-learn
+
+# ChromaDB backend
+chromadb
+python-dotenv
+fastapi
+uvicorn
+
+# Notebooks
+jupyter
+ipykernel
+
+# Testing / linting (used by Makefile)
+pytest
+pytest-cov
+pylint
